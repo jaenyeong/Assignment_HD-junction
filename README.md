@@ -17,6 +17,8 @@
 ## 개발환경
 * OS
   * `Mac OS Big Sur` - `11.3.1(20E241)`
+* 개발툴
+  * `IntelliJ IDEA Ultimate 2021.1.1`
 * DB
   * `H2` - `1.4.200`
   * 사용자명은 `sa`, 비밀번호는 없음
@@ -38,6 +40,9 @@
   * 설정
     * `Jar` 패키징 설정
     * `application.yml`에서 `H2` 활성화, `datasource` 설정
+      * `prod`, `dev` 프로필 분리 설정
+        * 개발환경에서 로컬 `H2`를 사용하도록 변경 (기본은 `prod`)
+        * IDEA에서 `-Dspring.profiles.active=dev` VM 옵션
 
 ## 요구사항 정리
 
