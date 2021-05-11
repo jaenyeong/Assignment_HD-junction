@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  h2:
+    console:
+      enabled=true:
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
