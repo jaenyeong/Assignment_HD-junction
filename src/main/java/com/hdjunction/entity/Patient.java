@@ -22,7 +22,8 @@ public class Patient {
 
     private CodeGroup.Code sexCode;
 
-    private String dateOfBirth;
+    @Embedded
+    private DateOfBirth dateOfBirth;
 
     private String phoneNo;
 
@@ -32,7 +33,7 @@ public class Patient {
         this.name = name;
         this.registrationId = registrationId;
         this.sexCode = sexCode;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = DateOfBirth.of(dateOfBirth);
         this.phoneNo = phoneNo;
     }
 }
