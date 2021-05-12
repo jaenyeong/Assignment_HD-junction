@@ -25,7 +25,8 @@ public class Patient {
     @Embedded
     private DateOfBirth dateOfBirth;
 
-    private String phoneNo;
+    @Embedded
+    private Phone phoneNo;
 
     public Patient(final Long hospitalId, final String name, final String registrationId, final CodeGroup.Code sexCode,
                    final String dateOfBirth, final String phoneNo) {
@@ -34,6 +35,6 @@ public class Patient {
         this.registrationId = registrationId;
         this.sexCode = sexCode;
         this.dateOfBirth = DateOfBirth.of(dateOfBirth);
-        this.phoneNo = phoneNo;
+        this.phoneNo = Phone.of(phoneNo);
     }
 }
