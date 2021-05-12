@@ -5,21 +5,27 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Patient {
+public class Patient extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PATIENT_ID")
     private Long id;
 
-    private Long hospitalId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "HOSPITAL_ID")
+    private Hospital hospital;
 
+    @Column(nullable = false, columnDefinition = "varchar(100) NOT NULL")
     private String name;
 
-    private String registrationId;
+    @Column(unique = true, nullable = false, columnDefinition = "uuid")
+    private UUID registrationId;
 
+    @Column(nullable = false)
     private CodeGroup.Code sexCode;
 
     @Embedded
@@ -28,13 +34,22 @@ public class Patient {
     @Embedded
     private Phone phoneNo;
 
-    public Patient(final Long hospitalId, final String name, final String registrationId, final CodeGroup.Code sexCode,
-                   final String dateOfBirth, final String phoneNo) {
-        this.hospitalId = hospitalId;
+    private Patient(final Hospital hospital, final String name, final CodeGroup.Code sexCode,
+                    final DateOfBirth dateOfBirth, final Phone phoneNo) {
+        this.hospital = hospital;
         this.name = name;
-        this.registrationId = registrationId;
+        this.registrationId = generateRegistrationId();
         this.sexCode = sexCode;
-        this.dateOfBirth = DateOfBirth.of(dateOfBirth);
-        this.phoneNo = Phone.of(phoneNo);
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNo = phoneNo;
+    }
+
+    public static Patient of(final Hospital hospital, final String name, final CodeGroup.Code sexCode,
+                             final String dateOfBirth, final String phoneNo) {
+        return new Patient(hospital, name, sexCode, DateOfBirth.of(dateOfBirth), Phone.of(phoneNo));
+    }
+
+    private UUID generateRegistrationId() {
+        return UUID.randomUUID();
     }
 }
