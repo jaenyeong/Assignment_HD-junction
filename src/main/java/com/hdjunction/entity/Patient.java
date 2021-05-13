@@ -41,7 +41,7 @@ public class Patient extends BaseTimeEntity {
     @Embedded
     private Phone phoneNo;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Visit> visitHistory = new ArrayList<>();
 
     private Patient(final Hospital hospital, final String name, final CodeGroup.Code sexCode,
