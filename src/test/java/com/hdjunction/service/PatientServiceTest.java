@@ -3,9 +3,7 @@ package com.hdjunction.service;
 import com.hdjunction.common.CodeGroup;
 import com.hdjunction.dto.PatientRequest;
 import com.hdjunction.dto.PatientResponse;
-import com.hdjunction.entity.Hospital;
-import com.hdjunction.entity.Patient;
-import com.hdjunction.entity.Visit;
+import com.hdjunction.entity.*;
 import com.hdjunction.exception.NotFoundException;
 import com.hdjunction.repository.HospitalRepository;
 import com.hdjunction.repository.PatientRepository;
@@ -19,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -135,5 +134,29 @@ class PatientServiceTest {
 
         // Assert
         assertThrows(NotFoundException.class, () -> patientRepository.findById(findPatient.getId()).orElseThrow(NotFoundException::new));
+    }
+
+    @DisplayName("환자 목록 조회 테스트")
+    @Test
+    void findPatientsTest() throws Exception {
+        // Arrange
+        final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
+        hospitalRepository.save(hospital);
+
+        final int patientsSize = 10;
+
+        for (int i = 0; i < patientsSize; i++) {
+            final Patient patient = Patient.of(hospital, "name " + i, CodeGroup.Code.MALE, DateOfBirth.of("20130712"), Phone.of("01038281921"));
+            patientRepository.save(patient);
+
+            final Visit visit = new Visit(hospital, patient, CodeGroup.Code.VISITING);
+            patient.visitHospital(visit);
+        }
+
+        // Act
+        final List<PatientResponse> patients = patientService.findPatients();
+
+        // Assert
+        assertThat(patients.size()).isEqualTo(patientsSize);
     }
 }

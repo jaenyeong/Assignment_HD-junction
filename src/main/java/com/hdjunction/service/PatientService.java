@@ -14,7 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,7 +23,6 @@ import javax.persistence.EntityManager;
 public class PatientService {
     private final HospitalRepository hospitalRepository;
     private final PatientRepository patientRepository;
-    private final EntityManager em;
 
     @Transactional
     public PatientResponse enroll(final PatientRequest request) {
@@ -65,5 +65,13 @@ public class PatientService {
             .orElseThrow(NotFoundException::new);
 
         patientRepository.delete(patient);
+    }
+
+    public List<PatientResponse> findPatients() {
+        final List<Patient> patients = patientRepository.findAll();
+
+        return patients.stream()
+            .map(PatientResponse::new)
+            .collect(Collectors.toUnmodifiableList());
     }
 }
