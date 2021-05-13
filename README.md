@@ -40,8 +40,9 @@
 * 환자 목록 조회
   * `GET` : `localhost:8080/patients`
 
-### 환자 방문(진료) 정보 API (`/visit`)
-* TODO(구현 예정): `VisitController` URI 및 설명 작성
+### 구현 미완
+* 환자 방문(진료) 정보 API (`/visit`)
+* 동적 검색 조건으로 환자 목록 조회, 페이징 처리
 
 ## 개발환경
 * OS
