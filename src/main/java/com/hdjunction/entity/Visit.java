@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class PatientVisit extends BaseTimeEntity {
+public class Visit extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
