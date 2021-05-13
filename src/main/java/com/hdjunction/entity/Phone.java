@@ -31,4 +31,8 @@ public class Phone {
     private static boolean isNotValidPhoneNoFormat(final String phoneNo) {
         return !Pattern.matches(REGEX_PHONE_NO, phoneNo);
     }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 }
