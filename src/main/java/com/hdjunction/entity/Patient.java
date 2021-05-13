@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -19,13 +20,15 @@ public class Patient extends BaseTimeEntity {
     @JoinColumn(name = "HOSPITAL_ID")
     private Hospital hospital;
 
-    @Column(nullable = false, columnDefinition = "varchar(100) NOT NULL")
+    @NotNull
+    @Column(columnDefinition = "varchar(100) NOT NULL")
     private String name;
 
-    @Column(unique = true, nullable = false, columnDefinition = "uuid")
+    @NotNull
+    @Column(unique = true, columnDefinition = "uuid")
     private UUID registrationId;
 
-    @Column(nullable = false)
+    @NotNull
     private CodeGroup.Code sexCode;
 
     @Embedded
