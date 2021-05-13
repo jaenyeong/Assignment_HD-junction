@@ -10,7 +10,7 @@ class PhoneTest {
 
     @DisplayName("유효한 휴대폰 번호 포맷 테스트")
     @ParameterizedTest
-    @CsvSource(value = {"19910101", "20070718", "19630914", "19920222", "20140328", "20200430"})
+    @CsvSource(value = {"01012345678", "0117391721", "01022223333", "01072982561", "0191726621", "0171921234"})
     void validPhoneNoTest(final String phoneNo) throws Exception {
         // Arrange
 
