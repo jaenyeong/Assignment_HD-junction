@@ -21,15 +21,15 @@ public class DateOfBirth {
     }
 
     public static DateOfBirth of(final String date) {
-        if (!matchingDateOfBirth(date)) {
+        if (invalidDateOfBirth(date)) {
             throw new IllegalArgumentException(INVALID_ERR_MESSAGE);
         }
 
         return new DateOfBirth(date);
     }
 
-    private static boolean matchingDateOfBirth(final String date) {
-        return Pattern.matches(REGEX_DATE_OF_BIRTH, date);
+    private static boolean invalidDateOfBirth(final String date) {
+        return !Pattern.matches(REGEX_DATE_OF_BIRTH, date);
     }
 
     public String getDateOfBirth() {
