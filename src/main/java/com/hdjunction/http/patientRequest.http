@@ -1,0 +1,13 @@
+
+POST localhost:8080/patients
+Content-Type: application/json
+
+{
+  "id": "",
+  "hospitalId": "1",
+  "name": "헷",
+  "sex": "M",
+  "dateOfBirth" : "20120122",
+  "phoneNo" : "01081621722"
+}
+

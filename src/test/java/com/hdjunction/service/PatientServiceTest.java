@@ -48,7 +48,7 @@ class PatientServiceTest {
         final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
         hospitalRepository.save(hospital);
 
-        final PatientRequest request = new PatientRequest(null, hospital.getId(), name, sexCode, dateOfBirth, phoneNo);
+        final PatientRequest request = new PatientRequest(null, Long.toString(hospital.getId()), name, sexCode, dateOfBirth, phoneNo);
 
         // Act
         final PatientResponse response = patientService.enroll(request);
@@ -77,13 +77,13 @@ class PatientServiceTest {
         final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
         hospitalRepository.save(hospital);
 
-        final PatientRequest request = new PatientRequest(null, hospital.getId(), "테스트1", "F", "20000303", "01038281921");
+        final PatientRequest request = new PatientRequest(null, Long.toString(hospital.getId()), "테스트1", "F", "20000303", "01038281921");
 
         // Act
         final PatientResponse originPatient = patientService.enroll(request);
 
         final PatientResponse updateResponse = patientService.update(
-            new PatientRequest(Long.parseLong(originPatient.getId()), hospital.getId(), name, sexCode, dateOfBirth, phoneNo));
+            new PatientRequest(originPatient.getId(), Long.toString(hospital.getId()), name, sexCode, dateOfBirth, phoneNo));
 
         // Assert
         assertThat(updateResponse.getName()).isEqualTo(name);
@@ -99,7 +99,7 @@ class PatientServiceTest {
         final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
         hospitalRepository.save(hospital);
 
-        final PatientRequest request = new PatientRequest(null, hospital.getId(), "홍길동", "M", "20000303", "01038281921");
+        final PatientRequest request = new PatientRequest(null, Long.toString(hospital.getId()), "홍길동", "M", "20000303", "01038281921");
         final Patient findPatient = patientRepository.findById(Long.parseLong(patientService.enroll(request).getId()))
             .orElseThrow(NotFoundException::new);
 
@@ -125,7 +125,7 @@ class PatientServiceTest {
         final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
         hospitalRepository.save(hospital);
 
-        final PatientRequest request = new PatientRequest(null, hospital.getId(), "홍길동", "M", "20000303", "01038281921");
+        final PatientRequest request = new PatientRequest(null, Long.toString(hospital.getId()), "홍길동", "M", "20000303", "01038281921");
         final Patient findPatient = patientRepository.findById(Long.parseLong(patientService.enroll(request).getId()))
             .orElseThrow(NotFoundException::new);
 

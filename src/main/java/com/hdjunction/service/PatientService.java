@@ -26,7 +26,7 @@ public class PatientService {
 
     @Transactional
     public PatientResponse enroll(final PatientRequest request) {
-        final Hospital hospital = hospitalRepository.findById(request.getHospitalId())
+        final Hospital hospital = hospitalRepository.findById(Long.parseLong(request.getHospitalId()))
             .orElseThrow(NotFoundException::new);
 
         final CodeGroup.Code sexCode = CodeGroup.Code.findCodeBy(request.getSex());
@@ -40,7 +40,7 @@ public class PatientService {
 
     @Transactional
     public PatientResponse update(final PatientRequest request) {
-        final Patient patient = patientRepository.findById(request.getId())
+        final Patient patient = patientRepository.findById(Long.parseLong(request.getId()))
             .orElseThrow(NotFoundException::new);
 
         final CodeGroup.Code sexCode = CodeGroup.Code.findCodeBy(request.getSex());
