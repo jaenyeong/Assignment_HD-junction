@@ -6,10 +6,7 @@ import com.hdjunction.dto.PatientResponse;
 import com.hdjunction.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -25,5 +22,12 @@ public class PatientController {
 
         return ResponseEntity.created(URI.create("/patients/" + patient.getId()))
             .body(new CommonResponse<>(patient));
+    }
+
+    @PutMapping
+    public ResponseEntity<CommonResponse<PatientResponse>> update(@RequestBody final PatientRequest request) {
+        patientService.update(request);
+
+        return ResponseEntity.noContent().build();
     }
 }
