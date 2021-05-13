@@ -1,15 +1,15 @@
 
-#POST localhost:8080/patients
-#Content-Type: application/json
-#
-#{
-#  "id": "",
-#  "hospitalId": "1",
-#  "name": "헷",
-#  "sex": "M",
-#  "dateOfBirth" : "20120122",
-#  "phoneNo" : "01081621722"
-#}
+POST localhost:8080/patients
+Content-Type: application/json
+
+{
+  "id": "",
+  "hospitalId": "1",
+  "name": "헷",
+  "sex": "M",
+  "dateOfBirth" : "20120122",
+  "phoneNo" : "01081621722"
+}
 
 ###
 
@@ -17,7 +17,7 @@
 #Content-Type: application/json
 #
 #{
-#  "id": "101",
+#  "id": "102",
 #  "hospitalId": "1",
 #  "name": "안뇽",
 #  "sex": "M",
@@ -32,5 +32,8 @@
 
 ###
 
-GET localhost:8080/patients/102
+#GET localhost:8080/patients/102
+#Content-Type: application/json
+
+GET localhost:8080/patients
 Content-Type: application/json

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/patients")
@@ -44,5 +45,13 @@ public class PatientController {
 
         return ResponseEntity.created(URI.create("/patients/" + patient.getId()))
             .body(new CommonResponse<>(patient));
+    }
+
+    @GetMapping
+    public ResponseEntity<CommonResponse<List<PatientResponse>>> findAll() {
+        final List<PatientResponse> patients = patientService.findPatients();
+
+        return ResponseEntity.ok()
+            .body(new CommonResponse<>(patients));
     }
 }
