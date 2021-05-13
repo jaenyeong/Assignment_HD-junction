@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientRequest {
+    private Long id;
     @NotNull(message = "병원 정보를 입력하세요.")
     private Long hospitalId;
     @NotBlank(message = "유효한 이름을 입력하세요.")

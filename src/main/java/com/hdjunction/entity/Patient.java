@@ -53,6 +53,13 @@ public class Patient extends BaseTimeEntity {
         return new Patient(hospital, name, sexCode, dateOfBirth, phoneNo);
     }
 
+    public void update(final String name, final CodeGroup.Code sexCode, final DateOfBirth dateOfBirth, final Phone phoneNo) {
+        this.name = name;
+        this.sexCode = sexCode;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNo = phoneNo;
+    }
+
     public Long getId() {
         return id;
     }

@@ -34,4 +34,18 @@ public class PatientService {
 
         return new PatientResponse(savedPatient);
     }
+
+    @Transactional
+    public PatientResponse update(final PatientRequest request) {
+        final Patient patient = patientRepository.findById(request.getId())
+            .orElseThrow(NotFoundException::new);
+
+        final CodeGroup.Code sexCode = CodeGroup.Code.findCodeBy(request.getSex());
+        final DateOfBirth dateOfBirth = DateOfBirth.of(request.getDateOfBirth());
+        final Phone phoneNo = Phone.of(request.getPhoneNo());
+
+        patient.update(request.getName(), sexCode, dateOfBirth, phoneNo);
+
+        return new PatientResponse(patient);
+    }
 }
