@@ -53,6 +53,10 @@ public class Patient extends BaseTimeEntity {
         return new Patient(hospital, name, sexCode, dateOfBirth, phoneNo);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     private UUID generateRegistrationId() {
         return UUID.randomUUID();
     }
