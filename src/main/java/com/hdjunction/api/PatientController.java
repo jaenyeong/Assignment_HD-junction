@@ -37,4 +37,12 @@ public class PatientController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CommonResponse<PatientResponse>> findById(@PathVariable final Long id) {
+        final PatientResponse patient = patientService.findPatient(id);
+
+        return ResponseEntity.created(URI.create("/patients/" + patient.getId()))
+            .body(new CommonResponse<>(patient));
+    }
 }

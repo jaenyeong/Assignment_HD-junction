@@ -1,4 +1,4 @@
-#
+
 #POST localhost:8080/patients
 #Content-Type: application/json
 #
@@ -27,5 +27,10 @@
 
 ###
 
-DELETE localhost:8080/patients/101
+#DELETE localhost:8080/patients/101
+#Content-Type: application/json
+
+###
+
+GET localhost:8080/patients/102
 Content-Type: application/json
