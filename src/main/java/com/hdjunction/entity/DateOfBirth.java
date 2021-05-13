@@ -31,4 +31,8 @@ public class DateOfBirth {
     private static boolean matchingDateOfBirth(final String date) {
         return Pattern.matches(REGEX_DATE_OF_BIRTH, date);
     }
+
+    public String getDateOfBirth() {
+        return DateOfBirth;
+    }
 }
