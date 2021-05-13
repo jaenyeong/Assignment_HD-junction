@@ -56,4 +56,24 @@ public class Patient extends BaseTimeEntity {
     private UUID generateRegistrationId() {
         return UUID.randomUUID();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRegistrationId() {
+        return registrationId.toString();
+    }
+
+    public String getSexCode() {
+        return sexCode.getDetailCode();
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth.getDateOfBirth();
+    }
+
+    public String getPhoneNo() {
+        return phoneNo.getPhoneNo();
+    }
 }
