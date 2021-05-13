@@ -23,6 +23,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("환자 CRUD 테스트")
 @SpringBootTest
@@ -116,5 +117,23 @@ class PatientServiceTest {
         assertThat(response.getSex()).isEqualTo("M");
         assertThat(response.getPhoneNo()).isEqualTo("01038281921");
         assertThat(response.getRecentVisit()).isNotEmpty();
+    }
+
+    @DisplayName("환자 정보 삭제 테스트")
+    @Test
+    void deletePatientTest() throws Exception {
+        // Arrange
+        final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
+        hospitalRepository.save(hospital);
+
+        final PatientRequest request = new PatientRequest(null, hospital.getId(), "홍길동", "M", "20000303", "01038281921");
+        final Patient findPatient = patientRepository.findById(Long.parseLong(patientService.enroll(request).getId()))
+            .orElseThrow(NotFoundException::new);
+
+        // Act
+        patientService.remove(findPatient.getId());
+
+        // Assert
+        assertThrows(NotFoundException.class, () -> patientRepository.findById(findPatient.getId()).orElseThrow(NotFoundException::new));
     }
 }

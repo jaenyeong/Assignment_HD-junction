@@ -58,4 +58,12 @@ public class PatientService {
 
         return new PatientResponse(patient);
     }
+
+    @Transactional
+    public void remove(final Long id) {
+        final Patient patient = patientRepository.findById(id)
+            .orElseThrow(NotFoundException::new);
+
+        patientRepository.delete(patient);
+    }
 }
