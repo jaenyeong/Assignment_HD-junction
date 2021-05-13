@@ -13,14 +13,19 @@
 
 ###
 
-PUT localhost:8080/patients
-Content-Type: application/json
+#PUT localhost:8080/patients
+#Content-Type: application/json
+#
+#{
+#  "id": "101",
+#  "hospitalId": "1",
+#  "name": "안뇽",
+#  "sex": "M",
+#  "dateOfBirth" : "20120122",
+#  "phoneNo" : "01081621722"
+#}
 
-{
-  "id": "101",
-  "hospitalId": "1",
-  "name": "안뇽",
-  "sex": "M",
-  "dateOfBirth" : "20120122",
-  "phoneNo" : "01081621722"
-}
+###
+
+DELETE localhost:8080/patients/101
+Content-Type: application/json

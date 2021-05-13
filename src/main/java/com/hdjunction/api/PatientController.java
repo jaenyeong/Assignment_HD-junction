@@ -30,4 +30,11 @@ public class PatientController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponse<PatientResponse>> remove(@PathVariable final Long id) {
+        patientService.remove(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
