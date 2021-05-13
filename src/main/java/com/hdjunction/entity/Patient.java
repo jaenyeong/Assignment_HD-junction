@@ -21,7 +21,7 @@ public class Patient extends BaseTimeEntity {
     private Hospital hospital;
 
     @NotNull
-    @Column(columnDefinition = "varchar(100) NOT NULL")
+    @Column(columnDefinition = "varchar(45)")
     private String name;
 
     @NotNull
@@ -29,6 +29,7 @@ public class Patient extends BaseTimeEntity {
     private UUID registrationId;
 
     @NotNull
+    @Column(columnDefinition = "varchar(10)")
     private CodeGroup.Code sexCode;
 
     @Embedded
