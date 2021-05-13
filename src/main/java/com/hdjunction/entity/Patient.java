@@ -49,8 +49,8 @@ public class Patient extends BaseTimeEntity {
     }
 
     public static Patient of(final Hospital hospital, final String name, final CodeGroup.Code sexCode,
-                             final String dateOfBirth, final String phoneNo) {
-        return new Patient(hospital, name, sexCode, DateOfBirth.of(dateOfBirth), Phone.of(phoneNo));
+                             final DateOfBirth dateOfBirth, final Phone phoneNo) {
+        return new Patient(hospital, name, sexCode, dateOfBirth, phoneNo);
     }
 
     private UUID generateRegistrationId() {
