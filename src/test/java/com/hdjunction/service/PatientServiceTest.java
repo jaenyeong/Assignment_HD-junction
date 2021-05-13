@@ -1,10 +1,17 @@
 package com.hdjunction.service;
 
+import com.hdjunction.common.CodeGroup;
 import com.hdjunction.dto.PatientRequest;
 import com.hdjunction.dto.PatientResponse;
 import com.hdjunction.entity.Hospital;
+import com.hdjunction.entity.Patient;
+import com.hdjunction.entity.Visit;
+import com.hdjunction.exception.NotFoundException;
 import com.hdjunction.repository.HospitalRepository;
+import com.hdjunction.repository.PatientRepository;
+import com.hdjunction.repository.VisitRepository;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -26,6 +33,12 @@ class PatientServiceTest {
 
     @Autowired
     private HospitalRepository hospitalRepository;
+
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private VisitRepository visitRepository;
 
     @DisplayName("환자 등록 테스트")
     @ParameterizedTest
@@ -77,5 +90,31 @@ class PatientServiceTest {
         assertThat(updateResponse.getDateOfBirth()).isEqualTo(dateOfBirth);
         assertThat(updateResponse.getSex()).isEqualTo(sexCode);
         assertThat(updateResponse.getPhoneNo()).isEqualTo(phoneNo);
+    }
+
+    @DisplayName("환자 정보 조회 테스트")
+    @Test
+    void findPatientTest() throws Exception {
+        // Arrange
+        final Hospital hospital = new Hospital("에이치디정션", UUID.randomUUID().toString(), "김정션");
+        hospitalRepository.save(hospital);
+
+        final PatientRequest request = new PatientRequest(null, hospital.getId(), "홍길동", "M", "20000303", "01038281921");
+        final Patient findPatient = patientRepository.findById(Long.parseLong(patientService.enroll(request).getId()))
+            .orElseThrow(NotFoundException::new);
+
+        final Visit visit = new Visit(hospital, findPatient, CodeGroup.Code.VISITING);
+        findPatient.visitHospital(visit);
+        visitRepository.save(visit);
+
+        // Act
+        final PatientResponse response = patientService.findPatient(findPatient.getId());
+
+        // Assert
+        assertThat(response.getName()).isEqualTo("홍길동");
+        assertThat(response.getDateOfBirth()).isEqualTo("20000303");
+        assertThat(response.getSex()).isEqualTo("M");
+        assertThat(response.getPhoneNo()).isEqualTo("01038281921");
+        assertThat(response.getRecentVisit()).isNotEmpty();
     }
 }

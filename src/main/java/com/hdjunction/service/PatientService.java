@@ -14,12 +14,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PatientService {
     private final HospitalRepository hospitalRepository;
     private final PatientRepository patientRepository;
+    private final EntityManager em;
 
     @Transactional
     public PatientResponse enroll(final PatientRequest request) {
@@ -45,6 +48,13 @@ public class PatientService {
         final Phone phoneNo = Phone.of(request.getPhoneNo());
 
         patient.update(request.getName(), sexCode, dateOfBirth, phoneNo);
+
+        return new PatientResponse(patient);
+    }
+
+    public PatientResponse findPatient(final Long id) {
+        final Patient patient = patientRepository.findById(id)
+            .orElseThrow(NotFoundException::new);
 
         return new PatientResponse(patient);
     }

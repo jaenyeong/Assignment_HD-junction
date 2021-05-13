@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -38,6 +41,9 @@ public class Patient extends BaseTimeEntity {
     @Embedded
     private Phone phoneNo;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Visit> visitHistory = new ArrayList<>();
+
     private Patient(final Hospital hospital, final String name, final CodeGroup.Code sexCode,
                     final DateOfBirth dateOfBirth, final Phone phoneNo) {
         this.hospital = hospital;
@@ -58,6 +64,23 @@ public class Patient extends BaseTimeEntity {
         this.sexCode = sexCode;
         this.dateOfBirth = dateOfBirth;
         this.phoneNo = phoneNo;
+    }
+
+    public void visitHospital(final Visit visit) {
+        this.visitHistory.add(visit);
+        visit.visitHospital(this);
+    }
+
+    public String getRecentVisit() {
+        if (this.visitHistory.isEmpty()) {
+            return "";
+        }
+
+        return this.visitHistory.stream()
+            .max(Comparator.comparing(BaseTimeEntity::getCreatedDate))
+            .get()
+            .getCreatedDate()
+            .toString();
     }
 
     public Long getId() {

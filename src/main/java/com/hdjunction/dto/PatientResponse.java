@@ -20,5 +20,6 @@ public class PatientResponse {
         this.sex = patient.getSexCode();
         this.dateOfBirth = patient.getDateOfBirth();
         this.phoneNo = patient.getPhoneNo();
+        this.recentVisit = patient.getRecentVisit();
     }
 }
