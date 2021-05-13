@@ -28,4 +28,8 @@ public class Hospital extends BaseTimeEntity {
         this.sanatoriumId = sanatoriumId;
         this.directorName = directorName;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
