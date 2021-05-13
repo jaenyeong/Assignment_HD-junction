@@ -9,7 +9,36 @@
 ## 사용법
 
 ### 환자 정보 API (`/patients`)
-* TODO(구현 예정): `PatientController` URI 및 설명 작성
+* 환자 정보 등록
+  * `POST` : `localhost:8080/patients`
+    ~~~
+    {
+        "id": "",
+        "hospitalId": "1",
+        "name": "헷",
+        "sex": "M",
+        "dateOfBirth" : "20120122",
+        "phoneNo" : "01081621722"
+    }
+    ~~~
+* 환자 정보 수정
+  * `PUT` : `localhost:8080/patients`
+    ~~~
+    {
+        "id": "102",
+        "hospitalId": "1",
+        "name": "안뇽",
+        "sex": "M",
+        "dateOfBirth" : "20120122",
+        "phoneNo" : "01081621722"
+    }
+    ~~~
+* 환자 정보 삭제
+  * `DELETE` : `localhost:8080/patients/101`
+* 특정 환자 정보 조회
+  * `GET` : `localhost:8080/patients/102`
+* 환자 목록 조회
+  * `GET` : `localhost:8080/patients`
 
 ### 환자 방문(진료) 정보 API (`/visit`)
 * TODO(구현 예정): `VisitController` URI 및 설명 작성
